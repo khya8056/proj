@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promanager</title>
+    {% load static %}
+    <link href="{% static 'website/home.css' %}" rel="stylesheet" type="text/css">
+   	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+</head>
+<body style="background-color:rgba(0,0,0,0.1)">
+<div class="header1">
+	<div class="huge" style="text-align:center">
+		Promanager
+	</div>
+</div>
+
+<div class="container-fluid" style="width:100%;padding:0">
+<nav class="navbar navbar-default" role="navigation" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand" style="color:black;font-weight:bold">
+		  {% if usertype %}
+		  STUDENT
+		  {% else %}
+		  ADMIN
+		  {% endif %}
+	  </div>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+            {% if project.id %}
+			<li class="active" style="color:black;font-size:150%"><a href="/home/student_home?p_id={{ project.id }}">Home</a></li>
+            {% else %}
+            <li class="active" style="color:black;font-size:150%"><a href="/home/student_home?p_id=-1">Home</a></li>
+            {% endif %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	  <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown">Notifications <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<!-- Start Iteration -->
+			  {% if noti %}
+			{% for notif in noti %}
+			  <li><a href="{% url 'notif' %}">
+				<table class="table table-striped" style="padding:0;margin:0;">
+					<tbody>
+					<tr>
+						<th>
+							{{notif.sender}}:
+						</th>
+						<td>
+							{{notif.note}}
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</a></li>
+			  {% endfor %}
+			  {% else %}
+			  <li style="text-align:center">
+				    No new notifications
+			  </li>
+			  {% endif %}
+			  <!--Stop Iteration -->
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{currentuser}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+			<li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div><!-- end container -->
+
+
+<div class="body"  style="min-height:300px">
+	<div class="container-fluid">
+		<div class="row" >
+			<div class="col-sm-3" >
+				<div class="sidebar-nav">
+				<div class="navbar navbar-inverse navbar-default" role="navigation" >
+				<div class="navbar-header" >
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="visible-xs navbar-brand"><span class="	glyphicon glyphicon-th-list"></span> Projects</span>
+				</div>
+				<div class="navbar-collapse collapse sidebar-navbar-collapse" style="padding-down:30%">
+					<div class="title" style="color:white;	text-align:center;	width:100%;">
+						<h3>Projects</h3>
+					</div>
+					<ul class="nav navbar-nav" style="padding-left:5%;">
+						{% if project %}
+                        {% for project in project_list %}
+                            <li><a href="/home/student_home?p_id={{ project.id }}" style="color:white;font-size:135%">{{ project.p_name }}</a></li>
+                        {% endfor %}
+						{% else %}
+						<div style="color:white;font-size:125%;padding-bottom:5%;font-style:italic;text-align:center">
+							You are not in any project yet
+						</div>
+						{% endif %}
+					</ul>
+				</div><!--/.nav-collapse -->
+				</div>
+				</div>
+				
+				{% if team %}
+				<div class="about">
+				<table class="table table-striped">
+					<thead>
+					  <tr>
+						<th style="text-align:center">Team</th>
+						<th style="text-align:center">Role</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr style="text-align:center">
+						<td>{{ team.t_id }}</td>
+						<td>{{ curr_role.role }}</td></tr>
+					</tbody>
+				  </table>
+				</div>
+				{% endif %}
+			</div>
+			<div class="col-sm-6 log">
+				{% if project %}
+				<h3 style="text-align:center;font-weight:bold">{{ project.p_name }} (Team Member for {{ team.t_id }})
+				</h3>
+				<h4 style="text-align:center;font-style:italic">Project Manager: {{project.m_id}}
+				</h4>
+				<h4 style="text-align:center;font-style:italic">Team Leader: {{ te.t_leader }}
+				</h4>
+				<h3>Log Sheet
+				</h3>
+				<table class="table table-striped">
+					<thead>
+					  <tr>
+						<th style="text-align:center;width:50%">Date</th>
+						<th>Work Done</th>
+					  </tr>
+					</thead>
+				</table>
+						<!-- Start Iteration	 -->
+
+				<table class="table table-striped">
+					<tbody>
+                    {% for work in work_list %}
+						<tr>
+						<td style="width:50%;text-align:center">{{ work.date }}</td>
+						<td style="padding-left:5%">{{ work.desc }}</td>
+						</tr>
+						<!-- Stop iteration -->
+                    {% endfor %}
+					</tbody>
+				</table>
+				<div class="upload row">
+					<div class="col-xs-6">
+						<form  action="" name="work_log" method="post" enctype="multipart/form-data" id="form">
+							{% csrf_token %}
+							<div class="upload" >
+								<textarea name="desc" rows="4" style="width:100%" placeholder="Update Log.."></textarea>
+							</div>
+							<br>
+						<div class="but3" style="width:70%;margin-left:15%;margin-top:3%">
+							<button type="submit" name="work_log" class="button"><small><span class="glyphicon glyphicon-open"></span></small> Upload</button>
+						</div>
+						</form>
+					</div>
+					<div class="col-xs-6" >
+						<form action="{% url 'send' %}" method="post" enctype="multipart/form-data" >{% csrf_token %}
+						<div class="upload" >
+							<textarea name="note" rows="4" cols="40" placeholder="Send Message.."></textarea>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<h5>Select User:</h5>
+							</div>
+							<div class="col-xs-4">
+								<select name="user" style="font-size:120%;margin-top:2%">
+								{% for man in usee %}
+									man
+									<option value="{{man}}">{{man}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="but3" style="width:40%;margin-left:15%">
+							<button type="submit" class="button">Send</button>
+						</div>
+						</form>
+					</div>
+				</div>
+				{% else %}
+				<div style="padding-top:5%">
+					<div class="upload" style="margin-left:25%">
+						<form action="{% url 'send' %}" method="post" enctype="multipart/form-data" >{% csrf_token %}
+						<div class="upload" >
+							<textarea name="note" rows="4" cols="50" placeholder="Send Message.."></textarea>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<h5>Select User:</h5>
+							</div>
+							<div class="col-xs-4">
+								<select name="user" style="font-size:120%;margin-top:2%">
+								{% for man in usee %}
+									man
+									<option value="{{man}}">{{man}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="but3" style="width:40%;margin-left:15%">
+							<button type="submit" class="button">Send</button>
+						</div>
+
+					</form>
+					</div>
+				</div>
+				{% endif %}
+
+			</div>
+			<div class="col-xs-3">
+				<h3>Notifications
+				</h3>
+				<!-- Start Iteration only	 -->
+				{% if noti %}
+				{% for notif in noti %}
+				<div class="row date" style="font-size:100%">
+					<div class="col-xs-6">
+						{{ notif.date | date:"SHORT_DATE_FORMAT"}}
+					</div>
+				</div>
+				<table class="table table-striped count" style="margin:0;line-height:15px">
+					<tbody>
+						<tr>
+						<td>{{notif.note}}</td>
+						</tr>
+				<!-- Stop iteration -->
+					</tbody>
+				</table>
+				<div style="text-align:right;font-size:100%;margin-right:15%;font-style:italic">
+					-{{notif.sender}}
+				</div>
+				{% endfor %}
+				<div class="row">
+					<div class="col-xs-8">
+					<div class="but2">
+						<a href="{% url 'notif' %}"><button type="#" class="button"> View all Notifications</button></a>
+					</div>
+					</div>
+				</div>
+				{% else %}
+				<div style="text-align:center;font-style:italic">
+					<h4>No notifications yet</h4>
+				</div>
+				{% endif %}
+				<h3>Upload Files
+				</h3>
+				{% if files %}
+				<div class="row uploadfile" style="padding-top:5%">
+					{% for file in files %}
+					<div style="line-height:20%">
+						<ul>
+							<li><a href="/home/student_home/download_file?pk={{ file.id }}">{{ file.file }}</a></li>
+						</ul>
+					</div>
+                    <br>
+                    {% endfor %}
+				</div>
+					{% endif %}
+					<!-- Stop Iteration -->
+				{% if project_list %}
+				<div class="row">
+					<div class="col-xs-6">
+					<div class="but2">
+						<button type="#" onclick="window.location.href='/home/student_home/upload_file?p_id={{ curr_proj.id }}'" class="button"><small><span class="glyphicon glyphicon-open"></span></small> Upload a file</button>
+					</div>
+					</div>
+					<div class="col-xs-6">
+					<div class="but2">
+						<button type="#" onclick="window.location.href='/home/student_home/view_files?p_id={{ curr_proj.id }}'" class="button"><small><span class="glyphicon glyphicon-file"></span></small> View all uploads</button>
+					</div>
+					</div>
+				</div>
+				{% else %}
+				<div style="text-align:center;font-style:italic">
+					<h4>To upload a file, you need to be a part of a project</h4>
+				</div>
+				{% endif %}
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$('.count').each(function(index){
+	console.log( index + ": " + $( this ).text() );
+	$(this).text($(this).text().substring(0,150));
+	});
+
+	$('.as').each(function(index){
+	console.log( index + ": " + $( this ).text() );
+	$(this).text($(this).text().substring(0,20));
+	});
+</script>
+
+</body>
+</html>

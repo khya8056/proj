@@ -1,0 +1,148 @@
+.but1{
+	text-align:center;
+	width:50%;
+	margin-top:1%;
+	margin-left:20%;
+	margin-bottom:3%;
+}
+
+.button1{
+    background-color: black;
+	font-size:120%;
+	color:white;
+	padding-top:2%;
+	padding-bottom:2%;
+	border-color:inherit;
+	border: 1px solid black;
+	opacity:0.5;
+	transition: all .5s;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.button1:hover, .button1:active{
+    box-shadow: 5px 5px 2px black;
+}
+
+.header1{
+    padding-bottom:3%;
+    text-align:center;
+    background-color:black;
+    color:white;
+    padding-top:2%;
+}
+
+.huge{
+    font-size:220%;
+}
+
+.body{
+    width:100%;
+}
+.content{
+    width:40%;
+	background-color:white;
+    margin-left:30%;
+	margin-top:10%;
+}
+
+#container_body{
+	font-weight:bold;
+	opacity: 0.75;
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:2%;
+	color:black;
+	text-align:center;
+}
+
+.form_title{
+	text-align:center;
+	font-size:180%;
+	padding-top:3%;
+	text-shadow: 0.5px 0.5px #000000;
+	color:black;
+}
+
+#username_div{
+	text-align:center;
+	font-size:140%;
+	width:50%;
+	margin-left:25%;
+	margin-bottom:2%;
+}
+
+#password_div{
+	text-align:center;
+	font-size:140%;
+	width:50%;
+	margin-left:25%;
+	margin-bottom:2%;
+}
+
+#id_password{
+    width:100%;
+	text-align:center;
+}
+
+#id_username{
+    width:100%;
+	text-align:center;
+}
+
+#but{
+	text-align:center;
+	width:50%;
+	margin-top:1%;
+	margin-left:25%;
+	margin-bottom:3%;
+}
+
+.button{
+    width:50%;
+    margin-left:25%;
+    background-color: black;
+	font-size:140%;
+	color:white;
+	padding-top:1%;
+	padding-bottom:1%;
+	border-color:inherit;
+	border: 1px solid black;
+	opacity:0.5;
+	transition: all .5s;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.button:hover, .button:active{
+    box-shadow: 5px 5px 2px black;
+}
+
+#sign{
+	padding-left:15%;
+	text-align:center;
+	padding-bottom:3%;
+}
+
+.alink :link{
+    color:white;
+    text-align: left;
+}
+
+.alink:hover{
+	color:red;
+}
+@media (max-width: 650px) {
+
+    .content{
+        width:80%;
+        padding:0;
+        margin:10%;
+    }
+    .huge{
+        font-size:170%;
+    }
+}

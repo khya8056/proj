@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promanager</title>
+    {% load staticfiles %}
+    <link href="{% static 'website/login.css' %}" rel="stylesheet" type="text/css">
+   	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:rgba(0,0,0,0.1)">
+
+<div class="header1">
+	<div class="huge" style="text-align:center">
+		Promanager
+	</div>
+</div>
+
+<div class="body">
+
+	<div class="content">
+   		<div id="Container_body">
+    		<div>
+				<h1 class="form_title">Login</h1>
+    		</div>
+    		<hr>
+			<form   action="" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+				<div id="username_div">
+					<input type="text" name="username" id="id_username" placeholder="Username"  required></input><br>
+				</div>
+				<div id="password_div">
+					<input type="password" name="password" id="id_password" placeholder="Password"  required></input><br>
+				</div>
+				<div class="but">
+					<button type="submit" class="button">LOGIN</button>
+				</div>	
+			</form>
+			<div id="sign" style="padding:0">
+				Not a member?<a class="alink" href="register">Sign up</a>
+			</div>
+			<div style="text-align:center;font-size:120% padding:0;">
+			<a href = "{% url 'password_reset' %}">Forgot Password</a>
+		</div>
+	</div>
+</div>
+
+</div>
+</body>
+</html>

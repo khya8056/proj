@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promanager</title>
+	    {% load staticfiles %}
+    <link href="{% static 'website/notification.css' %}" rel="stylesheet" type="text/css">
+   	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:rgba(0,0,0,0.1)">
+
+<div class="header1">
+	<div class="huge" style="text-align:center">
+		Promanager
+	</div>
+</div>
+<div class="container-fluid" style="width:100%;padding:0">
+ <nav class="navbar navbar-default" role="navigation" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand" style="color:black;font-weight:bold">
+		  {% if usertype %}
+		  STUDENT
+		  {% else %}
+		  ADMIN
+		  {% endif %}
+	  </div>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			{% if usertype %}
+			{% if project.id %}
+			<li  style="color:black;font-size:150%"><a href="/home/student_home?p_id={{ project.id }}">Home</a></li>
+            {% else %}
+            <li  style="color:black;font-size:150%"><a href="/home/student_home?p_id=-1">Home</a></li>
+            {% endif %}
+			{% else %}
+			{% if project.id %}
+			<li  style="color:black;font-size:150%"><a href="/home/admin_home?p_id={{ project.id }}">Home</a></li>
+            {% else %}
+            <li  style="color:black;font-size:150%"><a href="/home/admin_home?p_id=-1">Home</a></li>
+            {% endif %}
+			{% endif %}
+		</ul>
+      <ul class="nav navbar-nav navbar-right">
+	  <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown">Notifications <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<!-- Start Iteration -->
+			  {% if noti %}
+			{% for notif in noti %}
+                      <li><a href="{% url 'notif' %}">
+				<table class="table table-striped" style="padding:0;margin:0;">
+					<tbody>
+					<tr>
+						<th>
+							{{notif.sender}}:
+						</th>
+						<td>
+							{{notif.note}}
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</a></li>
+			  {% endfor %}
+			  {% else %}
+			  <li style="text-align:center">
+				    No new notifications
+			  </li>
+			  {% endif %}
+			  <!--Stop Iteration -->
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{currentuser}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+			<li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div><!-- end container -->
+
+
+<div class="body"  style="min-height:300px">
+	<div class="content" style="margin-bottom:5%">
+		<div id="Container_body">
+			<div>
+				<h1 class="form_title">Files for the project {{project.p_name}}</h1>
+			</div>
+			<hr>
+			{% if files %}
+            <ul>
+			{% for file in files %}
+			<div class="row field">
+            <li><a href="/home/student_home/download_file?pk={{ file.id }}">{{ file.file }}</a></li>
+			</div>
+			<hr style="height:2px;">
+			{% endfor %}
+            </ul>
+			{% else %}
+			<h3 style="text-align:center;font-style:italic;margintop:2%">No uploads yet</h3>
+			{% endif %}
+        </div>
+	</div>
+</div>
+
+
+<script>
+	$('.as').each(function(index){
+	console.log( index + ": " + $( this ).text() );
+	$(this).text($(this).text().substring(0,20));
+	});
+</script>
+
+</body>
+</html>

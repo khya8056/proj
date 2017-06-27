@@ -1,0 +1,133 @@
+
+.header1{
+    padding-bottom:3%;
+    background-color:black;
+    color:white;
+    padding-top:2%;
+}
+.form_title{
+	text-align:center;
+	font-size:180%;
+	padding-top:3%;
+	text-shadow: 0.5px 0.5px #000000;
+	color:black;
+}
+
+.huge{
+    font-size:220%;
+}
+.content{
+    width:40%;
+	background-color:white;
+    margin-left:30%;
+	margin-top:3%;
+	margin-bottom:5%;
+}
+
+#container_body{
+	
+	font-weight:bold;
+	opacity: 0.75;
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:2%;
+	color:black;
+	width:40%;
+	text-align:center;
+}
+
+.but{
+	text-align:center;
+	width:25%;
+	margin-top:0%;
+	margin-bottom:3%;
+}
+
+.but1{
+	text-align:center;
+	width:100%;
+	margin-top:0%;
+	margin-bottom:3%;
+}
+.but2{
+	text-align:center;
+	width:100%;
+	margin-top:0%;
+	margin-bottom:3%;
+}
+
+.but2 .button{
+	font-size:100%;
+}
+
+.button{
+    width:100%;
+    background-color: black;
+	font-size:140%;
+	color:white;
+	padding-top:2%;
+	padding-bottom:2%;
+	border-color:inherit;
+	border: 1px solid black;
+	opacity:0.5;
+	transition: all .5s;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+
+.button:hover, .button:active{
+    box-shadow: 5px 5px 2px black;
+}
+
+.btn1{
+	padding:.6%;
+	background-color:inherit;
+	border:0;
+	font-size:150%;
+	font-family:Sans Serif;
+	
+}
+
+.alink :link{
+    color:white;
+    text-align: left;
+}
+
+.alink:hover{
+	color:blue;
+}
+.log{
+	
+}
+
+.date{
+	font-size:130%;
+}
+.log th{
+	font-size:140%;
+}
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}	
+
+
+

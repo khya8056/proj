@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promanager</title>
+    {% load staticfiles %}
+    <link href="{% static 'website/homeadmin.css' %}" rel="stylesheet" type="text/css">
+   	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:rgba(0,0,0,0.1)">
+<div class="header1">
+	<div class="huge" style="text-align:center">
+		Promanager
+	</div>
+</div>
+
+<div class="container-fluid" style="width:100%;padding:0">
+ <nav class="navbar navbar-default" role="navigation" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand" style="color:black;font-weight:bold">
+		  {% if usertype %}
+		  Student
+		  {% else %}
+		  ADMIN
+		  {% endif %}
+	  </div>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+            {% if project.id %}
+			<li class="active" style="color:black;font-size:150%"><a href="/home/admin_home?p_id={{ project.id }}">Home</a></li>
+            {% else %}
+            <li class="active" style="color:black;font-size:150%"><a href="/home/admin_home?p_id=-1">Home</a></li>
+            {% endif %}
+			<li  style="color:black;font-size:150%"><a href="{% url 'addproject' %}">Add Project</a></li>
+		</ul>
+      <ul class="nav navbar-nav navbar-right">
+	  <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown">Notifications <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<!-- Start Iteration -->
+			  {% if noti %}
+			{% for notif in noti %}
+                       <li><a href="{% url 'notif' %}">
+				<table class="table table-striped" style="padding:0;margin:0;">
+					<tbody>
+					<tr>
+						<th>
+							{{notif.sender}}:
+						</th>
+						<td>
+							{{notif.note}}
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</a></li>
+			  {% endfor %}
+			  {% else %}
+			  <li style="text-align:center">
+				    No new notifications
+			  </li>
+			  {% endif %}
+			  <!--Stop Iteration -->
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" style="color:black;font-size:140%" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{currentuser}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+			<li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+			<li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div><!-- end container -->
+
+
+<div class="body" style="min-height:300px">
+	<div class="container-fluid">
+		<div class="row" >
+			<div class="col-sm-3" >
+				<div class="sidebar-nav">
+				<div class="navbar navbar-inverse navbar-default" role="navigation" >
+				<div class="navbar-header" >
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="visible-xs navbar-brand"><span class="	glyphicon glyphicon-th-list"></span> Projects</span>
+				</div>
+				<div class="navbar-collapse collapse sidebar-navbar-collapse" style="padding-down:30%">
+					<div class="title" style="color:white;	text-align:center;	width:100%;">
+						<h3>Projects</h3>
+					</div>
+						{% if p_list %}
+                        {% for project in p_list %}
+					<ul class="nav navbar-nav" style="padding-left:5%;" >
+                            <li ><a href="/home/admin_home?p_id={{ project.id }}" style="color:white;font-size:135%">{{ project.p_name }}</a></li>
+					</ul>
+                        {% endfor %}
+						{% else %}
+						<li>
+							<div class="title" style="color:white;	text-align:center;	width:100%;">
+								<h5>You haven't created any project yet</h5>
+							</div>
+						</li>
+						{% endif %}
+					<div class="row" style="margin:3%">
+						<div class="col-xs-6">
+					<div class="but5">
+						<a href="{% url 'addproject' %}" ><button type="submit" class="button5">Add</button></a>
+					</div>
+						</div>
+						<div class="col-xs-6">
+					<div class="but5">
+						<a href="{% url 'delproj' %}"><button type="submit" class="button5">Delete</button></a>
+					</div>
+						</div>
+					</div>
+				</div><!--/.nav-collapse -->
+				</div>
+				</div>
+
+				<div class="upload" style="margin-top:10%">
+					<form action="{% url 'send' %}" method="post" enctype="multipart/form-data" id="form">{% csrf_token %}
+						<div class="upload" >
+							<textarea name="note" rows="4" style="width:100%" placeholder="Send Message.."></textarea>
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<h5>Select User:</h5>
+							</div>
+							<div class="col-xs-4">
+								<select name="user" style="font-size:120%;margin-top:2%">
+								{% for man in choices %}
+									man
+									<option value="{{man.u_id}}">{{man}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						</div>
+						<div class="but3" style="width:70%;margin-left:13%">
+							<button type="submit" class="button">Send</button>
+						</div>
+					</form>
+				</div>
+			<div class="col-sm-6">
+				<div class="log" style="margin-bottom:10%">
+				{% if p_list %}
+				<h3 style="text-align:center;font-weight:bold">{{ curr_proj.p_name }}
+				</h3>
+				<table class="table table-striped">
+					<tbody>
+					  <tr>
+						<td><h5 style="font-weight:bold">Project Manager</h5></td>
+						<td>{{ proj_mngr.first_name }} {{ proj_mngr.last_name }}</td>
+					  </tr>
+  					</tbody>
+					</table >
+					<h3 style="font-weight:bold;width:100%;text-align:center">Teams</h3>
+				<hr style="height:2px;background:black;">
+				{% if team_list %}
+				{% for team in team_list %}
+					<h4 style="font-weight:bold;width:100%;text-align:center">{{ team.t_name }}</h4>
+				<table class="table table-striped">
+					<tbody>	
+					  <tr>
+						<td><h5 style="font-weight:bold">Team Leader</h5></td>
+						<td>{{ team.t_leader }}</td>
+					  </tr>
+					  <tr>
+						<td><h5 style="font-weight:bold">Team Members</h5></td>
+						<td>
+						<ul style="padding:0">
+							{% if team.t_members %}
+								{% for member in team.t_members.all %}
+									<li>{{ member }}
+								{% endfor %}
+							{% else %}
+							<div style="text-align:center;font-size:130%">
+								Team members have not been added yet.
+							</div>
+							{% endif %}
+						</ul>
+						</td>
+					  </tr>					  
+					</tbody>
+				</table>
+				<hr style="height:2px;background:black">
+				{% endfor %}
+				{% else %}
+				<div style="text-align:center;font-size:130%">
+					Teams have not been created yet
+				</div>
+				{% endif %}
+				{% else %}
+				<div style="text-align:center;font-size:130%">
+					You haven't created any project yet
+				</div>
+				{% endif %}
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<h3>Notifications
+				</h3>
+				<!-- Start Iteration only	 -->
+				{% if noti %}
+				{% for notif in noti %}
+				<div class="row date" style="font-size:100%">
+					<div class="col-xs-6">
+						{{ notif.date | date:"SHORT_DATE_FORMAT"}}
+					</div>
+				</div>
+				<table class="table table-striped count" style="margin:0;line-height:15px">
+					<tbody>
+						<tr>
+						<td>{{notif.note}}</td>
+						</tr>
+				<!-- Stop iteration -->
+					</tbody>
+				</table>
+				<div style="text-align:right;font-size:100%;margin-right:15%;font-style:italic">
+					-{{notif.sender}}
+				</div>
+				{% endfor %}
+				<div class="row">
+					<div class="col-xs-8">
+					<div class="but2">
+						<a href="{% url 'notif' %}"><button type="#" class="button"> View all Notifications</button></a>
+					</div>
+					</div>
+				</div>
+				{% else %}
+				<div style="text-align:center;font-style:italic">
+					<h4>No notifications yet</h4>
+				</div>
+				{% endif %}
+				<h3>Upload Files
+				</h3>
+				{% if files %}
+				<div class="row uploadfile" style="padding-top:5%">
+					{% for file in files %}
+					<div style="line-height:20%">
+						<ul>
+							<li><a href="/home/student_home/download_file?pk={{ file.id }}">{{ file.file }}</a></li>
+						</ul>
+					</div>
+                    <br>
+                    {% endfor %}
+				</div>
+					{% endif %}
+					<!-- Stop Iteration -->
+				{% if p_list %}
+				<div class="row">
+					<div class="col-xs-6">
+					<div class="but2">
+						<button type="#" onclick="window.location.href='/home/student_home/upload_file?p_id={{ curr_proj.id }}'" class="button"><small><span class="glyphicon glyphicon-open"></span></small> Upload a file</button>
+					</div>
+					</div>
+					<div class="col-xs-6">
+					<div class="but2">
+						<button type="#" onclick="window.location.href='/home/student_home/view_files?p_id={{ curr_proj.id }}'" class="button"><small><span class="glyphicon glyphicon-file"></span></small> View all uploads</button>
+					</div>
+					</div>
+				</div>
+				{% else %}
+				<div style="text-align:center;font-style:italic">
+					<h4>To upload a file, you need to create a project</h4>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$('.count').each(function(index){
+	console.log( index + ": " + $( this ).text() );
+	$(this).text($(this).text().substring(0,150));
+	});
+
+	$('.as').each(function(index){
+	console.log( index + ": " + $( this ).text() );
+	$(this).text($(this).text().substring(0,20));
+	});
+</script>
+</body>
+</html>

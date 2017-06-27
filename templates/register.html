@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promanager</title>
+    {% load staticfiles %}
+    <link href="{% static 'website/register.css'%}" rel="stylesheet" type="text/css">
+   	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:rgba(0,0,0,0.1)">
+
+<div class="header1">
+	<div class="huge" style="text-align:center">
+		Promanager
+	</div>
+</div>
+
+
+<div class="body">
+
+	<div class="content">
+   		<div id="Container_body">
+    		<div>
+				<h1 class="form_title">Register</h1>
+    		</div>
+    		<hr>
+			<form action="" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+				<div class="row field">
+					<div class="col-xs-5">
+						<label for="fn">First Name <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">	
+						<input type="text" name="first_name" id="fn" value="{{fname}}" required></input><br>
+					</div>
+				</div>
+				<div class="row field">
+					<div class="col-xs-5">
+						<label for="sn">Last Name <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">	
+						<input type="text" name="last_name" id="sn" value="{{lname}}" required></input><br>
+					</div>
+				</div>
+				<div style="font-size:120%;color:red;font-style:italic;padding-bottom:1%">
+				{{ form.email.errors }}
+				</div>
+				<div class="row field">
+					<div class="col-xs-5">
+						<label for="em">Email <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+						<input type="email" name="email" id="em"  value="{{email}}" required></input><br>
+					</div>
+				</div>
+
+				<div style="font-size:120%;color:red;font-style:italic;padding-bottom:1%">
+				{{ form.username.errors }}
+				</div>
+				<div class="row field">
+					<div class="col-xs-5">	
+						<label for="user">Username <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+						<input type="text" id="user" name="username" value="{{username}}" required></input><br>
+					</div>
+				</div>
+				{% if err2 %}
+				<div style="font-size:120%;color:red;font-style:italic;padding-bottom:1%">
+				*{{ err2 }}
+				</div>
+				{% endif %}
+				<div style="font-size:120%;color:red;font-style:italic;padding-bottom:1%">
+				{{ form.password.errors }}
+				</div>
+				<div class="row field">
+					<div class="col-xs-5">
+						<label for="pass">Password <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+						<input type="password" id="pass" name="password" required></input><br>
+					</div>
+				</div>
+				<div style="font-size:120%;color:red;font-style:italic;padding-bottom:1%">
+				{{ form.cpassword.errors }}
+				</div>
+				<div class="row field">
+					<div class="col-xs-5">
+						<label for="cpass">Confirm Password <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">	
+						<input type="password" id="cpass" name="cpassword"   required></input><br>
+					</div>
+				</div>
+                <div class="row field">
+					<div class="col-xs-5">
+						<label>Register as: <span style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+                        <select name="user_type" style="width:90%;padding:2%;">
+                            <option value="Admin" >Admin</option>
+                            <option value="Student">Student</option>
+                        </select>
+					</div>
+				</div>
+				<div class="but">
+					<button type="submit" class="button">REGISTER</button>
+				</div>	
+			</form>
+			<div id="sign">
+				Already a member?<a class="alink" href="login">Sign in</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
