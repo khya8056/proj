@@ -131,7 +131,7 @@
 								<h5>Select User:</h5>
 							</div>
 							<div class="col-xs-4">
-								<select name="user" style="font-size:120%;margin-top:2%">
+								<select name="user" style="margin-top:2%">
 								{% for man in usee %}
 									man
 									<option value="{{man}}">{{man}}</option>
@@ -236,9 +236,12 @@
 						</div>
 					</div>
 					</div>
-			</div>			<div class="col-xs-3">
-				<h3>Notifications
+			</div>
+			<div class="col-sm-3">
+
+				<h3 style="text-align:center;line-height:2px">Notifications
 				</h3>
+				<hr style="height:2px;background:black;">
 				<!-- Start Iteration only	 -->
 				{% if noti %}
 				{% for notif in noti %}
@@ -271,8 +274,10 @@
 					<h4>No notifications yet</h4>
 				</div>
 				{% endif %}
-				<h3>Upload Files
+				<br>
+				<h3 style="text-align:center;line-height:2px">Upload Files
 				</h3>
+				<hr style="height:2px;background:black;">
 				{% if files %}
 				<div class="row uploadfile" style="padding-top:5%">
 					{% for file in files %}

@@ -100,7 +100,7 @@
 </div><!-- end container -->
 
 
-<div class="body" style="min-height:300px">
+<div class="body" >
 	<div class="content" style="margin-bottom:5%">
 		<div id="Container_body">
 			<div>
@@ -110,13 +110,13 @@
 			<!-- Start Iteration -->
 			{% for notif in noti %}
 			<div class="row field">
-				<div class="col-xs-2" style="font-size:100%">
+				<div class="col-sm-2 dat" style="font-size:100%">
 					{{ notif.date | date:"SHORT_DATE_FORMAT"}}
 				</div>
-				<div class="col-xs-2">
+				<div class="col-sm-2 sen">
 				{{notif.sender}}
 				</div>
-				<div class="col-xs-8">
+				<div class="col-sm-8 nott">
 				{{notif.note}}
 				</div>
 			</div>

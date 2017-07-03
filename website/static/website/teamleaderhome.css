@@ -133,3 +133,10 @@
 }	
 
 
+@media (max-width: 908px) {
+
+.col-sm-6,.col-sm-3{
+    width:100%;
+}
+}
+

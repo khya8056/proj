@@ -11,9 +11,7 @@
     font-size:220%;
 }
 
-.body{
-    width:96%;
-}
+
 .content{
     width:60%;
 	background-color:white;
@@ -29,11 +27,11 @@
 }
 .initial{
 	margin-top:5%;
-	padding-top:5%;	
+	padding-top:5%;
 	padding-bottom:5%;
 	width:50%;
 	margin-left:25%;
-	text-align:center;	
+	text-align:center;
 	background:rgba(0,0,0,.1);
 	font-size:450%;
 }
@@ -59,7 +57,7 @@
 }
 .email{
 	margin-left:10%;
-	font-size:120%;	
+	font-size:120%;
 }
 
 .blue{
@@ -71,7 +69,7 @@
 	font-size:120%;
 }
 
-img{	
+img{
 }
 
 #container_body{
@@ -188,11 +186,34 @@ select{
     .huge{
         font-size:170%;
     }
-	
+
     .field{
         padding:1%;
     }
 	select{
 		width:100%;
 	}
+}
+
+
+@media (max-width: 968px) {
+
+.dat{
+    width:100%;
+    margin-bottom:1%;
+}
+.sen{
+    width:30%;
+    display:inline;
+}
+.nott{
+    width:70%;
+    display:inline;
+}
+
+.content{
+    width:100%;
+    margin:0;
+}
+
 }

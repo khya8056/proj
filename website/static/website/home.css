@@ -111,6 +111,7 @@
 
 /* make sidebar nav vertical */ 
 @media (min-width: 768px) {
+
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
     max-height: none;
@@ -129,5 +130,9 @@
   }
 }	
 
+@media (max-width: 908px) {
 
-
+.col-sm-6,.col-sm-3{
+    width:100%;
+}
+}

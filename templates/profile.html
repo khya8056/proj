@@ -106,22 +106,22 @@
 	<div class="content">
 		<div class="Container_body">
 			<div class="row">
-				<div class="col-xs-4">
+				<div class="col-sm-4 new">
 
 
 
 
 					{% if photo %}
 					<div class="photo">
-						<img src="{{currentuser.photo.url}}" alt="Upload Image" class="img-circle img-responsive" style="margin-left:15%;margin-top:5%;height:170px;width:170px"/>
+						<img src="{{currentuser.photo.url}}" alt="Upload Image" class="img-circle img-responsive im" />
 					</div>
 					{% else %}
-					<div class="initial img-circle img-responsive" style="margin-left:15%;margin-top:5%;height:170px;width:170px">
-						<span class="glyphicon glyphicon-user" style="margin-top:20%;font-size:120%"></span>
+					<div class="initial img-circle img-responsive im" >
+						<span class="glyphicon glyphicon-user" ></span>
 					</div>
 					{% endif %}
 
-					  <button type="button" class="btn btn-info btn-lg button" style="width:60%;margin-left:20%;padding:3%;margin-top:2%;background:rgba(0,0,0,.7);" data-toggle="modal" data-target="#myModal">Update Photo</button>
+					  <button type="button" class="btn btn-info btn-lg bu1" data-toggle="modal" data-target="#myModal">Update Photo</button>
 
 					  <!-- Modal -->
 					  <div class="modal fade" id="myModal" role="dialog">
@@ -152,9 +152,9 @@
 
 
 				</div>
-				<div class="col-xs-8">
+				<div class="col-sm-8 new">
 					<div class="user">
-						<div class="row username" style="margin-left:5%;margin-top:5%">
+						<div class="row username" >
 							<div class="col-xs-4" >
 								<span class="blue">Name:</span><br>
 								<span class="blue">Username:</span><br>
@@ -178,7 +178,7 @@
 			</div>
 			<hr>
 			{% if flag %}
-			<div style="font-size:120%;color:red;text-align:center;font-style:italic;padding-bottom:1%">
+			<div class="err">
 				*{{ err }}
 			</div>
 			{% endif %}

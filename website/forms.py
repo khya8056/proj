@@ -23,7 +23,6 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={'type': 'password', 'name': 'p', 'placeholder': 'Password'}))
     cpassword = forms.CharField(
         widget=forms.PasswordInput(attrs={'type': 'password', 'name': 'p', 'placeholder': 'Password'}))
-    user_type = forms.ChoiceField(choices=USER_TYPE ,required=True)
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -58,7 +57,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password','cpassword','first_name','last_name','email','user_type']
+        fields = ['username', 'password','cpassword','first_name','last_name','email']
 
 class ProjectForm(forms.ModelForm):
 

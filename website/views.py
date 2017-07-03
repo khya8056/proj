@@ -24,6 +24,11 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 usertype=0
 flag=0
+
+def redir(request):
+    return redirect('login')
+
+
 class LoginFormView(View):
     form_class = LoginForm
     template_name='login.html'
@@ -97,7 +102,6 @@ class RegisterFormView(View):
                 err1 = "Password length is too short. Please try again"
                 flag2=1
             cpassword = form.cleaned_data['cpassword']
-            user_type = form.cleaned_data['user_type']
             if(flag2 == 1):
                 return render(request,'register.html',context={'err1':err1,'fname':first_name,'lname':last_name,'username':username})
 
@@ -106,16 +110,9 @@ class RegisterFormView(View):
                 return render(request,self.template_name,context={'err2':str,'fname':first_name,'lname':last_name,'username':username})
             user.set_password(password)
             user.save()
-
-            if user_type == "Admin":
-                admin1 = main_admin()
-                admin1.u_id = user
-                admin1.save()
-
-            if user_type == "Student":
-                stud1 = student()
-                stud1.u_id = user
-                stud1.save()
+            stud1 = student()
+            stud1.u_id = user
+            stud1.save()
 
             user = authenticate(username=username,password=password)
 
@@ -123,11 +120,7 @@ class RegisterFormView(View):
 
                 if user.is_active:
                     login(request,user)
-                    if main_admin.objects.filter(u_id=user.id).exists():
-                        return redirect('/home/admin_home?p_id=-1')
-                    else:
-                        return redirect('/home/student_home?p_id=-1')
-
+                    return redirect('/home/student_home?p_id=-1')
         return render(request, self.template_name, {'form': form})
 
 class AdminHomeView(View):
